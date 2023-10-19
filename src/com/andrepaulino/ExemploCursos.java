@@ -3,6 +3,7 @@ package com.andrepaulino;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ExemploCursos {
@@ -17,9 +18,20 @@ public class ExemploCursos {
 
         cursos.stream()
                 .filter(c -> c.getAlunos() > 50)
-                .forEach(c -> System.out.println(c.getNome()));
+                .findFirst();
+
+        List<Curso> cursosFiltrados = cursos.stream()
+                .filter(c -> c.getAlunos() > 50)
+                .collect(Collectors.toList());
+
+        int totalAlunos = cursos.stream().mapToInt(Curso::getAlunos).sum();
+        System.out.println("Total de alunos: " + totalAlunos);
 
         Stream<String> nomes = cursos.stream().map(Curso::getNome);
+
+        cursos.stream()
+                .mapToInt(c -> c.getAlunos())
+                .average();
 
         cursos.stream()
                 .filter(c -> c.getAlunos() > 50)
